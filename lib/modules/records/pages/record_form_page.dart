@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 /// Página de formulário para criar um novo registro de glicemia.
 /// Localização: lib/modules/records/pages/record_form_page.dart
@@ -32,6 +34,7 @@ class _RecordFormPageState extends State<RecordFormPage> {
     if (date == null) return;
 
     final time = await showTimePicker(
+      // ignore: use_build_context_synchronously
       context: context,
       initialTime: TimeOfDay.fromDateTime(_selectedDateTime),
     );
@@ -55,6 +58,13 @@ class _RecordFormPageState extends State<RecordFormPage> {
       setState(() => _error = 'Informe o valor da glicemia');
       return;
     }
+
+      // Verifica se o usuário está autenticado
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        setState(() => _error = 'Você precisa estar logado para salvar.');
+        return;
+      }
 
     final value = double.tryParse(valueText);
     if (value == null) {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../modules/auth/controllers/login_controller.dart';
 import 'register_page.dart';
-
+//import '../../../app/pages/splash_page.dart';
+import '../../../shared/widgets/main_scaffold.dart'; //
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -34,10 +35,10 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     if (result == null) {
-      // 
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Login bem-sucedido!')),
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const MainScaffold()),
+        (route) => false,
       );
     }
   }
@@ -71,6 +72,33 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 20),
               Text(error!, style: const TextStyle(color: Colors.red)),
             ],
+            ElevatedButton.icon(
+              onPressed: loading
+                  ? null
+                  : () async {
+                      setState(() {
+                        loading = true;
+                        error = null;
+                      });
+
+                      final result = await controller.signInWithGoogle();
+
+                      setState(() {
+                        loading = false;
+                        error = result;
+                      });
+
+                      if (result == null) {
+                        // ignore: use_build_context_synchronously
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Login com Google bem-sucedido!')),
+                        );
+                      }
+                    },
+              icon: const Icon(Icons.login),
+              label: const Text('Entrar com Google'),
+            ),
             TextButton(
               onPressed: () {
                 Navigator.push(

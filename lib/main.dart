@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'shared/widgets/main_scaffold.dart';
-import 'firebase_options.dart'; // se estiver usando o FlutterFire CLI
+import 'package:firebase_auth/firebase_auth.dart';
+//import 'shared/widgets/main_scaffold.dart';
+import 'firebase_options.dart';
+import 'modules/records/pages/record_form_page.dart';
+import 'modules/auth/pages/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +25,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      home: const MainScaffold(),
+      home: FirebaseAuth.instance.currentUser != null
+          ? const RecordFormPage()
+          : const LoginPage(),
     );
   }
 }
