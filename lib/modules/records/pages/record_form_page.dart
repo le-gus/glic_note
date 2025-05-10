@@ -68,17 +68,30 @@ class _RecordFormPageState extends State<RecordFormPage> {
     });
 
     try {
+      // Tenta salvar o registro no Firestore
       await FirebaseFirestore.instance.collection('records').add({
         'value': value,
         'notes': _notesController.text.trim(),
         'timestamp': _selectedDateTime,
       });
-      // Após salvar, volta para tela anterior
+
+      // Verifica se a leitura do Firestore está funcionando
+      FirebaseFirestore.instance
+          .collection('records')
+          .limit(1) // Fazemos uma leitura limitada para testar a permissão
+          .get()
+          .then((snapshot) {
+        // ignore: avoid_print
+        print("Leitura bem-sucedida");
+      }).catchError((error) {
+        // ignore: avoid_print
+        print("Erro ao ler: $error");
+      });
+
+      // Após salvar, volta para a tela anterior
       if (mounted) Navigator.pop(context);
     } catch (e) {
       setState(() => _error = 'Erro ao salvar: $e');
-    } finally {
-      setState(() => _isSaving = false);
     }
   }
 
