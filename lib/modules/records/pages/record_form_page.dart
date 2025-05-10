@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:glic_note/modules/history/pages/history_page.dart';
+
 
 
 /// Página de formulário para criar um novo registro de glicemia.
@@ -80,26 +82,18 @@ class _RecordFormPageState extends State<RecordFormPage> {
     try {
       // Tenta salvar o registro no Firestore
       await FirebaseFirestore.instance.collection('records').add({
-        'value': value,
-        'notes': _notesController.text.trim(),
-        'timestamp': _selectedDateTime,
-      });
+  'value': value,
+  'notes': _notesController.text.trim(),
+  'timestamp': _selectedDateTime,
+});
 
-      // Verifica se a leitura do Firestore está funcionando
-      FirebaseFirestore.instance
-          .collection('records')
-          .limit(1) // Fazemos uma leitura limitada para testar a permissão
-          .get()
-          .then((snapshot) {
-        // ignore: avoid_print
-        print("Leitura bem-sucedida");
-      }).catchError((error) {
-        // ignore: avoid_print
-        print("Erro ao ler: $error");
-      });
-
-      // Após salvar, volta para a tela anterior
-      if (mounted) Navigator.pop(context);
+// Redirecionar para a página de histórico após salvar o registro
+if (mounted) {
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (_) => const HistoryPage()),
+  );
+}
     } catch (e) {
       setState(() => _error = 'Erro ao salvar: $e');
     }
