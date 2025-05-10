@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:glic_note/modules/history/pages/history_page.dart';
+
+import '../../../shared/widgets/main_scaffold.dart';
 
 /// Página de formulário para criar um novo registro de glicemia.
 /// Localização: lib/modules/records/pages/record_form_page.dart
@@ -95,7 +96,8 @@ class _RecordFormPageState extends State<RecordFormPage> {
       if (mounted) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const HistoryPage()),
+          MaterialPageRoute(
+              builder: (_) => const MainScaffold(initialIndex: 0)),
         );
       }
     } catch (e) {

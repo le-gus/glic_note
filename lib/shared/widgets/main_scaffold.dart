@@ -4,14 +4,21 @@ import 'package:glic_note/modules/profile/pages/profile_page.dart';
 import 'package:glic_note/modules/records/pages/record_form_page.dart';
 
 class MainScaffold extends StatefulWidget {
-  const MainScaffold({super.key});
+  final int initialIndex;
+  const MainScaffold({super.key, this.initialIndex = 1}); // Novo parâmetro
 
   @override
   State<MainScaffold> createState() => _MainScaffoldState();
 }
 
 class _MainScaffoldState extends State<MainScaffold> {
-  int _currentIndex = 1; // Começa no meio (Novo Registro)
+  late int _currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialIndex; // Usa o valor passado
+  }
 
   final List<Widget> _pages = const [
     HistoryPage(),
