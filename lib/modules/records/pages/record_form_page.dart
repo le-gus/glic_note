@@ -3,8 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:glic_note/modules/history/pages/history_page.dart';
 
-
-
 /// Página de formulário para criar um novo registro de glicemia.
 /// Localização: lib/modules/records/pages/record_form_page.dart
 class RecordFormPage extends StatefulWidget {
@@ -61,18 +59,20 @@ class _RecordFormPageState extends State<RecordFormPage> {
       return;
     }
 
-      // Verifica se o usuário está autenticado
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
-        setState(() => _error = 'Você precisa estar logado para salvar.');
-        return;
-      }
+    // Verifica se o usuário está autenticado
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      setState(() => _error = 'Você precisa estar logado para salvar.');
+      return;
+    }
 
     final value = double.tryParse(valueText);
     if (value == null) {
       setState(() => _error = 'Valor inválido');
       return;
     }
+
+    final uid = FirebaseAuth.instance.currentUser?.uid;
 
     setState(() {
       _isSaving = true;
@@ -81,19 +81,23 @@ class _RecordFormPageState extends State<RecordFormPage> {
 
     try {
       // Tenta salvar o registro no Firestore
-      await FirebaseFirestore.instance.collection('records').add({
-  'value': value,
-  'notes': _notesController.text.trim(),
-  'timestamp': _selectedDateTime,
-});
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('records')
+          .add({
+        'value': value,
+        'notes': _notesController.text.trim(),
+        'timestamp': _selectedDateTime,
+      });
 
 // Redirecionar para a página de histórico após salvar o registro
-if (mounted) {
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (_) => const HistoryPage()),
-  );
-}
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const HistoryPage()),
+        );
+      }
     } catch (e) {
       setState(() => _error = 'Erro ao salvar: $e');
     }

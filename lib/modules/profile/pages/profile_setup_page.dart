@@ -48,6 +48,8 @@ class _ProfileSetupPageState extends State<ProfileSetupPage> {
           'birth_date': birthDate,
           'medication': medication,
           'diabetes_type': diabetesType,
+          
+
         });
 
         // Redireciona para a página principal ou de medição
