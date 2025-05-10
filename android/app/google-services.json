@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "252405280358",
+    "project_id": "glicnote-df11f",
+    "storage_bucket": "glicnote-df11f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252405280358:android:95b79ebb731a2dce8b07a7",
+        "android_client_info": {
+          "package_name": "com.example.glic_note"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252405280358-i2hu47kdtii1vb7btfptud8lg8kdd7fr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL2TMKeRQIksbRIok4w7Te0N-SKAh55BA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252405280358-i2hu47kdtii1vb7btfptud8lg8kdd7fr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "252405280358-h6rs5kitvg0d525jdic5i5h570ib95c9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.glicNote"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252405280358:android:025bc24f6bca8b2e8b07a7",
+        "android_client_info": {
+          "package_name": "com.gumelos.glicnote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252405280358-jvetj23gb0quojdc45qlo4ptlsvutq8g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gumelos.glicnote",
+            "certificate_hash": "534d97abafa75a065772e22d3533d89fe41b7388"
+          }
+        },
+        {
+          "client_id": "252405280358-i2hu47kdtii1vb7btfptud8lg8kdd7fr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL2TMKeRQIksbRIok4w7Te0N-SKAh55BA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252405280358-i2hu47kdtii1vb7btfptud8lg8kdd7fr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "252405280358-h6rs5kitvg0d525jdic5i5h570ib95c9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.glicNote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
