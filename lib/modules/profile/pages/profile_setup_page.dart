@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../shared/widgets/main_scaffold.dart';
+
 class ProfileSetupPage extends StatefulWidget {
   const ProfileSetupPage({super.key});
 
@@ -48,16 +50,14 @@ class _ProfileSetupPageState extends State<ProfileSetupPage> {
           'birth_date': birthDate,
           'medication': medication,
           'diabetes_type': diabetesType,
-          
-
         });
 
-        // Redireciona para a página principal ou de medição
-        // ignore: use_build_context_synchronously
-        Navigator.pushReplacementNamed(context, '/main');
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (_) => const MainScaffold()),
+          (route) => false,
+        );
       }
     } catch (e) {
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Erro ao salvar os dados: $e'),
       ));

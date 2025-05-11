@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glic_note/modules/profile/pages/profile_setup_page.dart';
 import '../controllers/register_controller.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -32,10 +33,10 @@ class _RegisterPageState extends State<RegisterPage> {
     });
 
     if (result == null && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Conta criada com sucesso!')),
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const ProfileSetupPage()),
       );
-      Navigator.pop(context); // volta para login
     }
   }
 

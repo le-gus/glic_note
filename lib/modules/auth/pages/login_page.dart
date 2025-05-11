@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glic_note/modules/auth/pages/register_page.dart';
 import '../../../modules/auth/controllers/login_controller.dart';
 //import 'register_page.dart';
 //import '../../../app/pages/splash_page.dart';
@@ -103,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const MainScaffold()),
+                  MaterialPageRoute(builder: (_) => const RegisterPage()),
                 );
               },
               child: const Text('Criar nova conta'),
