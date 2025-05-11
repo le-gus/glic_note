@@ -1,0 +1,2 @@
+D:/Projetos/glic_note/android/app/.cxx/Debug/2y4a2b6d/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/Projetos/glic_note/android/app/.cxx/Debug/2y4a2b6d/arm64-v8a/CMakeFiles/rebuild_cache.dir
