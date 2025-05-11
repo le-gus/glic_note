@@ -52,12 +52,14 @@ class _ProfileSetupPageState extends State<ProfileSetupPage> {
           'diabetes_type': diabetesType,
         });
 
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (_) => const MainScaffold()),
           (route) => false,
         );
       }
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('Erro ao salvar os dados: $e'),
       ));
