@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlicNote - Monitoramento de Glicemia</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #61a0ff, #003e9f);
+      color: white;
+    }
+
+    header {
+      background-color: transparent;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header img {
+      width: 150px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .hero p {
+      font-size: 1.2em;
+    }
+
+    .section {
+      padding: 60px 20px;
+       text-align: center;
+      padding: 60px 20px;
+      background: #6c90cc;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      color: #333;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .features .feature-box {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      color: #333;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .pricing {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 40px;
+      margin-top: 40px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-primary {
+      background-color: #ff4757;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #e84118;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="../lib/assets/logo_glicnote_rbg.png" alt="GlicNote Logo" style="width: 40%; margin-bottom: -200px;">
+  </header>
+
+  <section class="hero">
+    <h1>Bem-vindo ao GlicNote</h1>
+    <p>O seu companheiro inteligente para registrar e acompanhar a glicemia com facilidade e precisão.</p>
+    <a href="#form-contato" class="btn btn-primary btn-lg mt-4">Experimente Gratuitamente</a>
+  </section>
+
+  <section class="section text-center">
+    <div class="container">
+      <h2>Sobre o GlicNote</h2>
+      <p>GlicNote é um aplicativo intuitivo para monitorar seus níveis de glicemia, manter registros organizados e visualizar seu progresso ao longo do tempo.</p>
+    </div>
+  </section>
+
+  <section class="section features">
+    <div class="container">
+      <h2 class="text-center mb-5">Funcionalidades Principais</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="feature-box">
+            <h4>Registro Rápido</h4>
+            <p>Adicione medições com poucos toques, diretamente pelo celular.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-box">
+            <h4>Histórico Visual</h4>
+            <p>Acompanhe seus dados em gráficos e listas organizadas.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-box">
+            <h4>Relatórios e Exportações</h4>
+            <p>Exporte seus dados para compartilhar com médicos e especialistas.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-5">
+        <a href="#form-contato" class="btn btn-primary btn-lg">Comece Agora</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section text-center">
+    <div class="container pricing">
+      <h2>Planos</h2>
+      <p><strong>Grátis</strong>: Todas as funcionalidades essenciais disponíveis para você começar agora mesmo.</p>
+      <p><strong>Pro (em breve)</strong>: Funcionalidades avançadas como análises gráficas e relatórios em PDF.</p>
+    </div>
+  </section>
+
+  <section class="section text-center" id="form-contato">
+    <div class="container">
+      <h2>Fale Conosco</h2>
+      <form class="mt-4">
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Seu nome" required>
+        </div>
+        <div class="mb-3">
+          <input type="email" class="form-control" placeholder="Seu e-mail" required>
+        </div>
+        <div class="mb-3">
+          <textarea class="form-control" rows="4" placeholder="Sua mensagem"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 GlicNote. Todos os direitos reservados.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
