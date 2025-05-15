@@ -43,33 +43,89 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Criar Conta')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            TextField(
-              controller: emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-            ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(labelText: 'Senha'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: loading ? null : _register,
-              child: loading
-                  ? const CircularProgressIndicator()
-                  : const Text('Registrar'),
-            ),
-            if (error != null) ...[
-              const SizedBox(height: 20),
-              Text(error!, style: const TextStyle(color: Colors.red)),
-            ]
-          ],
+      backgroundColor: const Color(0xFFF0F4F8),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/logo_glicnote_rbg.png',
+                height: 100,
+              ),
+              const SizedBox(height: 24),
+              const Text(
+                'Criar nova conta',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF2A2E43),
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Senha',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: loading ? null : _register,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF4A90E2),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: loading
+                      ? const CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                        )
+                      : const Text(
+                          'Registrar',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                ),
+              ),
+              if (error != null) ...[
+                const SizedBox(height: 20),
+                Text(error!,
+                    style: const TextStyle(color: Colors.red, fontSize: 14)),
+              ],
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text(
+                  'Já tem conta? Entrar',
+                  style: TextStyle(color: Color(0xFF4A90E2)),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

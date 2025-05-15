@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../../../shared/widgets/main_scaffold.dart';
 
-/// Página de formulário para criar um novo registro de glicemia.
-/// Localização: lib/modules/records/pages/record_form_page.dart
 class RecordFormPage extends StatefulWidget {
   const RecordFormPage({super.key});
 
@@ -14,17 +11,12 @@ class RecordFormPage extends StatefulWidget {
 }
 
 class _RecordFormPageState extends State<RecordFormPage> {
-  // Controllers para capturar valores digitados
   final TextEditingController _valueController = TextEditingController();
   final TextEditingController _notesController = TextEditingController();
-
-  // Data e hora selecionadas (inicialmente agora)
   DateTime _selectedDateTime = DateTime.now();
-
   bool _isSaving = false;
   String? _error;
 
-  /// Exibe um DatePicker e um TimePicker para o usuário escolher data/hora
   Future<void> _pickDateTime() async {
     final date = await showDatePicker(
       context: context,
@@ -33,55 +25,39 @@ class _RecordFormPageState extends State<RecordFormPage> {
       lastDate: DateTime(2100),
     );
     if (date == null) return;
-
     final time = await showTimePicker(
-      // ignore: use_build_context_synchronously
       context: context,
       initialTime: TimeOfDay.fromDateTime(_selectedDateTime),
     );
     if (time == null) return;
-
     setState(() {
-      _selectedDateTime = DateTime(
-        date.year,
-        date.month,
-        date.day,
-        time.hour,
-        time.minute,
-      );
+      _selectedDateTime =
+          DateTime(date.year, date.month, date.day, time.hour, time.minute);
     });
   }
 
-  /// Salva o registro no Firestore
   Future<void> _saveRecord() async {
     final valueText = _valueController.text.trim();
     if (valueText.isEmpty) {
       setState(() => _error = 'Informe o valor da glicemia');
       return;
     }
-
-    // Verifica se o usuário está autenticado
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
-      setState(() => _error = 'Você precisa estar logado para salvar.');
-      return;
-    }
-
     final value = double.tryParse(valueText);
     if (value == null) {
       setState(() => _error = 'Valor inválido');
       return;
     }
-
     final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) {
+      setState(() => _error = 'Você precisa estar logado.');
+      return;
+    }
 
     setState(() {
       _isSaving = true;
       _error = null;
     });
-
     try {
-      // Tenta salvar o registro no Firestore
       await FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
@@ -91,8 +67,6 @@ class _RecordFormPageState extends State<RecordFormPage> {
         'notes': _notesController.text.trim(),
         'timestamp': _selectedDateTime,
       });
-
-// Redirecionar para a página de histórico após salvar o registro
       if (mounted) {
         Navigator.pushReplacement(
           context,
@@ -102,57 +76,140 @@ class _RecordFormPageState extends State<RecordFormPage> {
       }
     } catch (e) {
       setState(() => _error = 'Erro ao salvar: $e');
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Novo Registro')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Campo para valor numérico
-            TextField(
-              controller: _valueController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Valor (mg/dL)',
+      // fundo em degradê azul como na LoginPage
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF66b2ff), Color(0xFF003366)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            // card branco centralizado
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
+              elevation: 8,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text(
+                      'Novo Registro',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF003366),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // input valor
+                    TextField(
+                      controller: _valueController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: 'Valor (mg/dL)',
+                        prefixIcon: const Icon(Icons.bloodtype),
+                        filled: true,
+                        fillColor: Colors.grey.shade100,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // selecionar data
+                    OutlinedButton.icon(
+                      onPressed: _pickDateTime,
+                      icon: const Icon(Icons.calendar_today),
+                      label: Text(
+                        'Data e Hora',
+                        style: TextStyle(color: Colors.blue.shade900),
+                      ),
+                      style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.grey.shade100,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12))),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      _selectedDateTime.toLocal().toString().split('.').first,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: Colors.black54),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // observações
+                    TextField(
+                      controller: _notesController,
+                      maxLines: 3,
+                      decoration: InputDecoration(
+                        labelText: 'Observações (opcional)',
+                        prefixIcon: const Icon(Icons.notes),
+                        filled: true,
+                        fillColor: Colors.grey.shade100,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // erro
+                    if (_error != null) ...[
+                      Text(
+                        _error!,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+
+                    // botão salvar
+                    SizedBox(
+                      height: 48,
+                      child: ElevatedButton(
+                        onPressed: _isSaving ? null : _saveRecord,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF003366),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: _isSaving
+                            ? const CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation(Colors.white))
+                            : const Text(
+                                'Salvar',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(height: 12),
-            // Botão para escolher data e hora
-            TextButton(
-              onPressed: _pickDateTime,
-              child: Text(
-                'Data e hora: ${_selectedDateTime.toLocal().toString().split('.').first}',
-              ),
-            ),
-            const SizedBox(height: 12),
-            // Campo de observações
-            TextField(
-              controller: _notesController,
-              decoration: const InputDecoration(
-                labelText: 'Observações (opcional)',
-              ),
-              maxLines: 3,
-            ),
-            const SizedBox(height: 20),
-            // Exibe erro, se houver
-            if (_error != null) ...[
-              Text(_error!, style: const TextStyle(color: Colors.red)),
-              const SizedBox(height: 12),
-            ],
-            // Botão de salvar
-            ElevatedButton(
-              onPressed: _isSaving ? null : _saveRecord,
-              child: _isSaving
-                  ? const CircularProgressIndicator()
-                  : const Text('Salvar'),
-            ),
-          ],
+          ),
         ),
       ),
     );
