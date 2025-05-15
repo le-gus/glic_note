@@ -28,7 +28,7 @@ GitHub Pages (para publicação da landing page)
 
 ## Desenvolvedores
 
-**Gustavo Andrade** Desenvolvedor principal, redesign e landing page
-**Thiago Cezimbra** Desenvolvedor front e back 
-**Arthur Damasceno** Documentação e Apoio
-**Vitor Nascimento** Legado
+### **Gustavo Andrade** Desenvolvedor principal, redesign e landing page
+### **Thiago Cezimbra** Desenvolvedor front e back 
+### **Arthur Damasceno** Documentação e Apoio
+### **Vitor Nascimento** Legado
