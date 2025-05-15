@@ -8,9 +8,9 @@ GlicNote é um aplicativo moderno e intuitivo desenvolvido em Flutter para ajuda
 ## 🧩 Funcionalidades
 - [ ] 📝 Registro rápido de medições de glicemia
 
-- [ ] Histórico visual com gráficos e listagens
+- [ ] 📊Histórico visual com gráficos e listagens
 
-- [ ] Exportação de dados em PDF
+- [ ] 📤Exportação de dados em PDF
 
 - [ ] ☁️ Backup em nuvem (futuramente)
 
